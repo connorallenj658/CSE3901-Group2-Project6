@@ -1,0 +1,10 @@
+<h1>Presentations</h1>
+<%= link_to "New Presentation", new_presentation_path %>
+<ul>
+  <% @presentations.each do |presentation| %>
+    <li>
+      <%= link_to presentation.title, presentation_path(presentation) %>
+      (Date: <%= presentation.date.strftime("%B %d, %Y") %>)
+    </li>
+  <% end %>
+</ul>

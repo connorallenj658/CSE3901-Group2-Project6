@@ -1,0 +1,24 @@
+<h1>Welcome, <%= current_user.role.capitalize %></h1>
+
+<% if current_user.teacher? %>
+  <h2>All Presentations</h2>
+  <ul>
+    <% @presentations.each do |presentation| %>
+      <li>
+        <%= link_to presentation.title, presentation_path(presentation) %>
+        (Date: <%= presentation.date.strftime("%B %d, %Y") %>)
+      </li>
+    <% end %>
+  </ul>
+  <%= link_to "Create New Presentation", new_presentation_path %>
+<% else %>
+  <h2>Rate Presentations</h2>
+  <ul>
+    <% @presentations.each do |presentation| %>
+      <li>
+        <%= link_to "Rate #{presentation.title}", new_presentation_evaluation_path(presentation) %>
+        (Date: <%= presentation.date.strftime("%B %d, %Y") %>)
+      </li>
+    <% end %>
+  </ul>
+<% end %>

@@ -21,6 +21,24 @@ class PresentationsController < ApplicationController
     end
   end
 
+  def edit
+    @presentation = Presentation.find(params[:id])
+  end
+
+  def updated
+    @presentation = Presentation.find(params[:id])
+    if @presentation.update(presentation_params)
+      redirect_to @presentation, notice: 'Presentation was successfully updated'
+    else
+      render 'edit', status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @presentation = Presentation.find(params[:id])
+    @presentation.destroy
+  end
+
   private
 
   def presentation_params

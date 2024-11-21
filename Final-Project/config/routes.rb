@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  get "home/index"
+  
   root "home#index"
+  get "courses/show"
+  get "courses/index"
+  get "courses/create"
+  get "courses/destroy"
+  get "courses/update"
+  get "home/index"
 
   devise_for :users
 

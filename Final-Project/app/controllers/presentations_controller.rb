@@ -21,7 +21,8 @@ class PresentationsController < ApplicationController
   end
 
   def show
-    @presentation = Presentation.find(params[:id])
+    @presentation = Presentation.find(params[:id]) # Fetch the presentation by ID
+    @evaluations = @presentation.evaluations # Fetch all evaluations for the presentation
   end
 
   def destroy

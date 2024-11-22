@@ -8,8 +8,9 @@ class User < ApplicationRecord
   before_save :set_default_role
 
   has_many :courses
-
-  validates :name, presence:true
+  has_many :presentations, dependent: :destroy
+  
+  validates :name, presence:true 
 
   validates :email, presence:true, 
   length:{maximum: 50},
@@ -19,9 +20,13 @@ class User < ApplicationRecord
   validates :password, presence:true,
   length: {minimum: 6}
 
-  private
-
-  def set_default_role
-    self.role ||= "student"
+ 
+  def teacher?
+    role == "teacher"
   end
+
+  def student?
+    role == "student"
+  end
+   private
 end

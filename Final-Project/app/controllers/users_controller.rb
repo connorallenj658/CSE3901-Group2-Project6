@@ -1,51 +1,44 @@
 class UsersController < ApplicationController
-  def index
+  before_action :authenticate_user! # Ensure only logged-in users can access
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_teacher, only: [:index, :destroy] # Optional: Admin-only actions
+
+   def index
     @users = User.all
   end
 
-  def new
-    @user = User.new
-  end
-
   def show
-    @user=User.find_by_id(params['id'])
-    if @user.nil?
-      flash[:alert] = 'User not found.'
-      redirect_to users_path
-    end
-  end
-
-  def create
-    @user= User.new(user_params)
-    if @user.save
-      flash[:success] = 'Hello and welcome!'
-      redirect_to user_path(@user), notice: 'User was successfully created'
-    else
-      render 'new', status: :unprocessable_entity
-    end
+    # @user is already set by `set_user`
   end
 
   def edit
-    @user = User.find(params[:id])
+    # @user is already set by `set_user`
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to @user, notice: "User was sucessfully updated"
+      redirect_to @user, notice: "User updated successfully."
     else
-      render 'edit', status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
-    redirect_to users_path, notice: "User was successfully deleted"
+    redirect_to users_path, notice: "User deleted successfully."
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
+    params.require(:user).permit(:name, :email, :role) # Include fields you want users to update
+  end
+
+  def ensure_teacher
+    redirect_to root_path, alert: "Access denied." unless current_user.role == "teacher"
   end
 end

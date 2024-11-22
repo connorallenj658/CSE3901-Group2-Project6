@@ -1,6 +1,8 @@
 class Presentation < ApplicationRecord
   has_many :evaluations, dependent: :destroy
-  #validates title and date fields
-  validates :title, presence: true, length: { maximum: 100 }
+  belongs_to :user # Each presentation is created by a user
+
+  validates :title, presence: true
   validates :date, presence: true
+  validates :description, presence: true
 end

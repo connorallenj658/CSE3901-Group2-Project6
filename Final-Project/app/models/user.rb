@@ -8,8 +8,8 @@ class User < ApplicationRecord
   before_save :set_default_role
 
   has_many :courses
-
-  validates :name, presence:true
+  
+  validates :name, presence:true 
 
   validates :email, presence:true, 
   length:{maximum: 50},

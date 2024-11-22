@@ -1,26 +1,22 @@
-<% provide(:title, 'User Index Page') %>
+<h1>All Users</h1>
 
-<% @users.each do |user| %>
-    <p>
-        <strong>ID:</strong> <%= user.id %> 
-        <br>
-        <strong>Name:</strong> <%= user.name %> 
-        <br>
-        <strong>Email:</strong> <%= user.email %> 
-        <br>
-        <strong>Role:</strong> <%= user.role %>
-        <br>
-        <strong>Created_at:</strong> <%= user.created_at %> 
-        <br>
-        <strong>Updated_at:</strong> <%= user.updated_at %> 
-        <br>
-        <br>
-        <%= link_to 'Edit', edit_user_path(user) %>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name || "N/A" %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-        <%= form_with model: user, method: :delete do |form| %>
-            <%= form.submit 'Delete' %>
-        <% end %>
-
-        <strong>-----------------------------------</strong>
-    </p>
-<% end %>
+<%= link_to "Back to Home", root_path %>

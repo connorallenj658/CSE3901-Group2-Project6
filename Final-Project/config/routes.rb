@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/show', to: 'users#show'
   get '/show/:id', to:'users#show'
   get '/users', to:'users#index'
+  get 'users/:id', to: 'users#show', as: 'user'
 
   devise_for :users
 

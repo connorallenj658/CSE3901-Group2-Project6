@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
   
   root "home#index"
-  get "courses/show"
-  get "courses/index"
-  get "courses/create"
-  get "courses/destroy"
-  get "courses/update"
-  get "home/index"
+  get '/show', to: 'users#show'
+  get '/show/:id', to:'users#show'
+  get '/users', to:'users#index'
 
   devise_for :users
 

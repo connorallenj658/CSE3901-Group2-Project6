@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
     has_many :users
+    has_many :presentations
 
-    validates :teacher, presence: true, length: { maximum: 100 }
-    validates :students, presence: true
+    validates :name, presence: true, length: { maximum: 20}
 end

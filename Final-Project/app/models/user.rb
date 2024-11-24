@@ -28,5 +28,8 @@ class User < ApplicationRecord
   def student?
     role == "student"
   end
-   private
+
+  def set_default_role
+    self.role ||= "student" # Default role is 'student' if no role is provided
+  end
 end

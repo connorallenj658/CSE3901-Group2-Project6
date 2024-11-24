@@ -1,0 +1,16 @@
+<h2>Evaluations</h2>
+
+<% if @evaluations.any? %>
+  <ul>
+    <% @evaluations.each do |evaluation| %>
+      <li>
+        <strong>Score:</strong> <%= evaluation.score %> |
+        <strong>Comment:</strong> <%= evaluation.comment %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No evaluations have been submitted for this presentation yet.</p>
+<% end %>
+
+<%= link_to "Back to Presentations", presentations_path %>

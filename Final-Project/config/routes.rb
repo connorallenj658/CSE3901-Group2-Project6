@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root "home#index"
 
   # Devise for User Authentication
-  devise_for :users
-
+  devise_for :users, :controllers => { registrations: 'users/registrations' }
+  
   # Custom Routes for Courses (if needed)
   resources :courses, only: [:index, :show, :create, :update, :destroy]
 

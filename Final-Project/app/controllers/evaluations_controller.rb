@@ -9,6 +9,7 @@ class EvaluationsController < ApplicationController
     @presentation = Presentation.find(params[:presentation_id])
     @evaluation = @presentation.evaluations.build
   end
+  before_action :authenticate_user!
 
   def create
     @presentation = Presentation.find(params[:presentation_id])
@@ -18,8 +19,7 @@ class EvaluationsController < ApplicationController
     if @evaluation.save
       redirect_to presentation_path(@presentation), notice: "Evaluation submitted successfully."
     else
-      flash[:alert] = "Unable to submit evaluation."
-      redirect_to presentation_path(@presentation)
+      redirect_to presentation_path(@presentation), alert: @evaluation.errors.full_messages.to_sentence
     end
   end
 

@@ -1,0 +1,21 @@
+<h1>Edit Presentation</h1>
+
+<%= form_with model: @presentation, local: true do |f| %>
+  <div>
+    <%= f.label :title, "Presentation Title" %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :date, "Presentation Date" %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div>
+    <%= f.label :description, "Presentation Description" %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.submit "Update Presentation" %>
+  </div>
+<% end %>
+
+<%= link_to "Back to Presentations", presentations_path %>

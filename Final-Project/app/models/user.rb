@@ -7,8 +7,10 @@ class User < ApplicationRecord
 
   before_save :set_default_role
 
-  has_many :courses
-  has_many :presentations, dependent: :destroy
+  has_many :enrollments
+  has_many :courses, through: :enrollments
+  has_many :presentations
+
   
   validates :name, presence:true 
 
@@ -33,3 +35,5 @@ class User < ApplicationRecord
     self.role ||= "student" # Default role is 'student' if no role is provided
   end
 end
+
+# User.new(name: 'Hamilton', email: 'Hamiltonb63@outlook.com', password: '123456')

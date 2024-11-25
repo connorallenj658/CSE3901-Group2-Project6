@@ -1,7 +1,7 @@
 <% provide(:title, 'Course Roster') %>
 <h1>Course Roster</h1>
 
-<% @courses.users.each do |course| %>
+<% @course.users.each do |user| %>
     <p>
         <strong>ID:</strong> <%= user.id %> 
         <br>
@@ -13,10 +13,10 @@
         <br>
         <strong>Updated_at:</strong> <%= user.updated_at %> 
         <br>
-        #<br>
-        #<%= link_to 'Edit', edit_course_path(course) %>
+        <br>
+        <%= link_to 'Edit', edit_user_path(user) %>
 
-        <%= form_with model: course, method: :delete do |form| %>
+        <%= form_with model: user, method: :delete do |form| %>
             <%= form.submit 'Delete' %>
         <% end %>
 

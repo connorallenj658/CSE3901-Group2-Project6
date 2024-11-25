@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :courses, only: [:index, :show, :new, :create, :update, :destroy]
 
   #get "/courses/:id", to: "courses#show"
+  get "courses/:id/edit", to: "courses#edit", as: "edit_course"
 
   # User Management (excluding `new` and `create` since Devise handles sign-up)
   resources :users, except: [:new, :create]

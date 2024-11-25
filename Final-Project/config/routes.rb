@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # Root Path
-  root "home#index"
+  root "courses#index"
 
   # Devise for User Authentication
   devise_for :users, :controllers => { registrations: 'users/registrations' }
@@ -22,5 +22,5 @@ Rails.application.routes.draw do
 
 
   # Catch-all route for Home
-  get "home/index"
+  get "courses/index"
 end

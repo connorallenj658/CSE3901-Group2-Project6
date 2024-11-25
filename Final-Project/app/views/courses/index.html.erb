@@ -9,11 +9,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @courses.each do |course| %>
+    <% @current_user.courses.each do |course| %>
       <tr>
         <td><%= course.name %></td>
         <td><%= course.description %></td>
         <td><%= course.credits %></td>
+        <td><%= link_to 'View', course_path(course) %></td>
       </tr>
     <% end %>
   </tbody>

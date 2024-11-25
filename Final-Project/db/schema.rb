@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_24_235507) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_25_024325) do
   create_table "courses", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.integer "credits"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
+  create_table "enrollments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_enrollments_on_course_id"
+    t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
 
   create_table "evaluations", force: :cascade do |t|
@@ -54,6 +64,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_24_235507) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "enrollments", "courses"
+  add_foreign_key "enrollments", "users"
   add_foreign_key "evaluations", "presentations"
   add_foreign_key "evaluations", "users"
   add_foreign_key "presentations", "users"

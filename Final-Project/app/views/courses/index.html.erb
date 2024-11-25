@@ -1,4 +1,17 @@
+<% provide(:title, 'All Courses') %>
 <h1>Courses</h1>
+
+<% if current_user.teacher? %>
+  <p><%= link_to "Create New Course", "courses/new"%></p>
+<% end %>
+
+<% if current_user.courses == nil %>
+  <% if current_user.teacher? %>
+    <p> You are not running any active courses at this time. Click the ADD COURSE button to begin </p>
+  <% else %>
+    <p> You do not belong to any active courses at this time. Contact your teacher if you are meant to be part of a course </p>
+  <% end  %>
+<% end %>
 
 <table>
   <thead>
@@ -9,15 +22,15 @@
     </tr>
   </thead>
   <tbody>
-    <% @courses.each do |course| %>
+    <% current_user.courses.each do |course| %>
       <tr>
         <td><%= course.name %></td>
         <td><%= course.description %></td>
         <td><%= course.credits %></td>
+        <td><%= link_to 'View', course_path(course) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to "Back to Home", root_path %>
 

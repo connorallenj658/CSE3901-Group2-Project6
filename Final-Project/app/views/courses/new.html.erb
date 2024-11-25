@@ -1,10 +1,8 @@
-<% provide(:title, 'Create Course') %>
-<h1>Create Course</h1>
+<% provide(:title, 'All Courses') %>
+<h1>New Course</h1>
 
-<%= form_with model: resource, url: registration_path(resource_name), local: true do |f| %>
-  <%= _course_error_messages! %>
-<%= form_with model: resource, as: resource_name, url: registration_path(resource_name), local: true do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<%= form_with(model: @course) do |f| %>
+  <%= render "course_errors_messages"%>
 
   <div>
     <%= f.label :name, "Course Name" %><br>
@@ -25,5 +23,3 @@
     <%= f.submit "Create Course" %>
   </div>
 <% end %>
-
-

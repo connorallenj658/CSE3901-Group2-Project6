@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'users/registrations' }
   
   # Custom Routes for Courses (if needed)
-  resources :courses, only: [:index, :show, :create, :update, :destroy]
+  resources :courses, only: [:index, :show, :new, :create, :update, :destroy]
 
   #get "/courses/:id", to: "courses#show"
 
@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:index]
-
 
   # Catch-all route for Home
   get "courses/index"

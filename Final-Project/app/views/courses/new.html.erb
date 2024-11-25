@@ -1,0 +1,25 @@
+<% provide(:title, 'All Courses') %>
+<h1>New Course</h1>
+
+<%= form_with(model: @course) do |f| %>
+  <%= render "course_errors_messages"%>
+
+  <div>
+    <%= f.label :name, "Course Name" %><br>
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
+  <div>
+    <%= f.label :description, "Course Description" %><br>
+    <%= f.text_field :description, autofocus: true %>
+  </div>
+
+  <div>
+    <%= f.label :credits, "Number of Credits" %><br>
+    <%= f.number_field :credits, min: 1, max: 9 %>
+ </div>
+
+  <div>
+    <%= f.submit "Create Course" %>
+  </div>
+<% end %>

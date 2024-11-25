@@ -1,110 +1,52 @@
-<<<<<<< HEAD
 class CoursesController < ApplicationController
   def index
-    @Courses = Course.all
+    @courses = Course.all  
   end
 
   def new
-    @courses = Course.new
+    @course = Course.new  
   end
   
   def show
-    @courses=Course.find_by_id(params[:id])
-    #debugger
-    if @courses.nil?
+    @course = Course.find_by_id(params[:id])  
+    if @course.nil?
       flash[:alert] = 'Course not found.'
-      #redirect_to users_path
+      #redirect_to courses_path  
     end
-    #puts "<-----------------name--------------->#{@user['name']}"
-    #puts "<-----------------email--------------->#{@user['email']}"
   end
   
   def create
-    @courses = Course.new(course_params)
-    if @courses.save
-      flash[:success] = "Hello and welcome!"
-      redirect_to user_path(@courses), notice: "Course was successfully created!"
+    @course = Course.new(course_params)  # use course_params, not user_params
+    if @course.save
+      #flash[:success] = "Hello and Welcome"
+      redirect_to course_path(@course), notice: "Course was successfully created!"
     else
       render 'new', status: :unprocessable_entity
     end
   end
   
   def edit
-    @courses = Course.find(params[:id])
+    @course = Course.find(params[:id])
   end
   
-  def updated
-    @courses = Course.find(params[:id])
-    if @courses.update(course_params)
-      redirect_to @courses, notice: 'Course was successfully updated'
+  def update  # 'update' not 'updated'
+    @course = Course.find(params[:id])
+    if @course.update(course_params)
+      redirect_to @course, notice: 'Course was successfully updated'
     else
       render 'edit', status: :unprocessable_entity
     end
   end
   
   def destroy
-    @courses = Course.find(params[:id])
-    @courses.destroy
+    @course = Course.find(params[:id])
+    @course.destroy
+    redirect_to courses_path, notice: 'Course was successfully deleted'
   end
   
   private
+  
   def course_params
-    params.require(:user).permit(:teacher, :students)
+    params.require(:course).permit(:name, :description, :credits)  # update permitted params
   end
 end
-=======
-class CoursesController < ApplicationController
-  def index
-    @Courses = Course.all
-  end
-
-  def new
-    @courses = Course.new
-  end
-  
-  def show
-    @courses=Course.find_by_id(params[:id])
-    #debugger
-    if @courses.nil?
-      flash[:alert] = 'Course not found.'
-      #redirect_to users_path
-    end
-    #puts "<-----------------name--------------->#{@user['name']}"
-    #puts "<-----------------email--------------->#{@user['email']}"
-  end
-  
-  def create
-    @courses = Course.new(user_params)
-    if @courses.save
-      flash[:success] = "Hello and welcome!"
-      redirect_to user_path(@courses), notice: "Course was successfully created!"
-    else
-      render 'new', status: :unprocessable_entity
-    end
-  end
-  
-  def edit
-    @courses = Course.find(params[:id])
-  end
-  
-  def updated
-    @courses = Course.find(params[:id])
-    if @courses.update(course_params)
-      redirect_to @courses, notice: 'Course was successfully updated'
-    else
-      render 'edit', status: :unprocessable_entity
-    end
-  end
-  
-  def destroy
-    @courses = Course.find(params[:id])
-    @courses.destroy
-  end
-  
-  private
-  def course_params
-    params.require(:user).permit(:teacher, :students)
-  end
-end
->>>>>>> 0114c93664b4e9c65063d6f0c2cdeee86c0f763b
-  

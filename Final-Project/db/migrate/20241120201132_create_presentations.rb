@@ -5,7 +5,7 @@ class CreatePresentations < ActiveRecord::Migration[7.2]
       t.datetime :date
       t.timestamps
       t.string :description
-      t.integer :credits
+      t.string :credits
     end
   end
 end

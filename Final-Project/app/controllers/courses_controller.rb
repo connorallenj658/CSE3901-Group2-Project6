@@ -33,6 +33,7 @@ class CoursesController < ApplicationController
   
   def create
     @course = Course.new(course_params)  # use course_params, not user_params
+    @course.user = current_user
     if @course.save
       @enrollment = Enrollment.new(user_id: current_user.id, course_id: @course.id)
       @enrollment.save

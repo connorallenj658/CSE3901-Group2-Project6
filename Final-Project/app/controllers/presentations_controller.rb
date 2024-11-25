@@ -13,11 +13,13 @@ class PresentationsController < ApplicationController
   def create
     @presentation = Presentation.new(presentation_params)
     @presentation.user = current_user # Associate the presentation with the logged-in user
+    @presentation.course = @course
 
     # Prevent duplicate evaluations logic is not relevant here for creating presentations
     if @presentation.save
-      redirect_to presentations_path, notice: "Presentation created successfully."
+      redirect_to course_presentations_path(@course), notice: "Presentation created successfully."
     else
+      flash[:alert] = @presentation.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
   end

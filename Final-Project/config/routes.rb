@@ -6,9 +6,17 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'users/registrations' }
   
   # Custom Routes for Courses (if needed)
+  # resources :courses, only: [:index, :show, :new, :create, :update, :destroy] 
+  # get "courses/:id/edit", to: "courses#edit", as: "edit_course"
   resources :courses, only: [:index, :show, :new, :create, :update, :destroy] do
+    resources :presentations do
+      resources :evaluations, only: [:new, :create, :index]
+    end
     resources :enrollments, only: [:create, :destroy]
   end
+
+  #get "/courses/:id", to: "courses#show"
+  # get "courses/:id/edit", to: "courses#edit", as: "edit_course"
 
   delete 'course_enrollment_path', to: 'enrollment#destroy', as: 'enrollment'
 
@@ -18,14 +26,14 @@ Rails.application.routes.draw do
   # User Management (excluding `new` and `create` since Devise handles sign-up)
   resources :users, except: [:new, :create]
 
-  # Nested Resources for Presentations and Evaluations
-  resources :presentations do
-    resources :evaluations, only: [:new, :create, :index, :show]
-  end
-
-
   resources :users, only: [:index]
 
   # Catch-all route for Home
   get "courses/index"
+
+  resources :courses do
+    member do
+      post :enroll
+    end
+  end
 end

@@ -11,9 +11,9 @@
     </tr>
   </thead>
   <tbody>
-    <% @presentations.each do |presentation| %>
+    <% @course.presentations.each do |presentation| %>
       <tr>
-        <td><%= link_to presentation.title, presentation_path(presentation) %></td>
+        <td><%= link_to presentation.title, course_presentation_path(@course, presentation.id) %></td>
         <td><%= presentation.date.strftime("%B %d, %Y") %></td>
         <td><%= presentation.description %></td>
         <td><%= presentation.user.name %> (<%= presentation.user.email %>)</td>

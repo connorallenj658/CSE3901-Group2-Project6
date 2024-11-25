@@ -1,11 +1,9 @@
 <% provide(:title, 'Course Roster') %>
 <h1>Course Roster</h1>
 
-<% @course.users.each do |user| %>
+<% @course.users.each do |course.name| %>
     <p>
-        <strong>ID:</strong> <%= user.id %> 
-        <br>
-        <strong>Name:</strong> <%= user.name %> 
+        <strong>Name:</strong> <%= course.name %> 
         <br>
         <strong>Email:</strong> <%= user.email %> 
         <br>

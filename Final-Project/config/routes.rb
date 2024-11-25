@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :evaluations, only: [:new, :create, :index]
   end
 
+
   resources :users, only: [:index]
 
   # Catch-all route for Home

@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   before_save :set_default_role
 
-  has_many :enrollments
+  has_many :enrollments, dependent: :destroy
   has_many :courses, through: :enrollments
   has_many :presentations
 

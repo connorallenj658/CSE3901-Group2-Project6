@@ -1,4 +1,5 @@
 class EvaluationsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @presentation = Presentation.find(params[:presentation_id])
     @evaluations = @presentation.evaluations
@@ -11,12 +12,20 @@ class EvaluationsController < ApplicationController
 
   def create
     @presentation = Presentation.find(params[:presentation_id])
-    @evaluation = @presentation.evaluations.build(evaluation_params)
+    @evaluation = @presentation.evaluations.new(evaluation_params)
+    @evaluation.user = current_user
+
     if @evaluation.save
-      redirect_to presentation_path(@presentation), notice: "Evaluation added successfully!"
+      redirect_to presentation_path(@presentation), notice: "Evaluation submitted successfully."
     else
-      render :new, status: :unprocessable_entity
+      flash[:alert] = "Unable to submit evaluation."
+      redirect_to presentation_path(@presentation)
     end
+  end
+
+  def show
+    @evaluation = Evaluation.find(params[:id])
+    @presentation = @evaluation.presentation # Fetch the associated presentation
   end
 
   private

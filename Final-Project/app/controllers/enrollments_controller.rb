@@ -17,8 +17,8 @@ class EnrollmentsController < ApplicationController
 
   def create
     user = nil
-    if params[:email]
-      user = User.find_by(email: params[:email])
+    if params[:user_email]
+      user = User.find_by(email: params[:user_email])
     elsif params[:user_id]
       user = User.find_by(id: params[:user_id])
     end
@@ -31,7 +31,7 @@ class EnrollmentsController < ApplicationController
       #flash[:success] = "Hello and Welcome"
       redirect_to course_path(@enrollment.course_id), notice: "Student enrolled"
     else
-      render 'new', status: :unprocessable_entity
+      redirect_to course_path(@enrollment.course_id), notice: "Student could not be enrolled"
     end
   end
 
@@ -48,6 +48,7 @@ class EnrollmentsController < ApplicationController
   private
     
   def enrollment_params
-    params.require(:enrollment).permit(:user_id, :course_id)
+    params.permit(:user_id, :course_id)
+    #params.require(:enrollment).permit(:user_id, :course_id, :user_email)
   end
 end

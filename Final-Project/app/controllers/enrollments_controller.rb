@@ -13,8 +13,19 @@ class EnrollmentsController < ApplicationController
       flash[:alert] = 'Enrollment not found.'
       #redirect_to courses_path  
     end
+  end
 
   def create
+    user = nil
+    if params[:email]
+      user = User.find_by(email: params[:email])
+    elsif params[:user_id]
+      user = User.find_by(id: params[:user_id])
+    end
+    if user.nil?
+      redirect_to course_path(params[:course_id]), alert: "User not found"
+      return
+    end
     @enrollment = Enrollment.new(enrollment_params)
     if @enrollment.save
       #flash[:success] = "Hello and Welcome"

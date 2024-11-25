@@ -6,8 +6,12 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'users/registrations' }
   
   # Custom Routes for Courses (if needed)
-  resources :courses, only: [:index, :show, :new, :create, :update, :destroy]
-  
+  resources :courses, only: [:index, :show, :new, :create, :update, :destroy] do
+    resources :enrollments, only: [:create, :destroy]
+  end
+
+  delete 'course_enrollment_path', to: 'enrollment#destroy', as: 'enrollment'
+
   get 'courses/:id/roster', to: 'courses#roster', as: 'course_roster'
   delete 'remove_user/:user_id', to: 'courses#remove_user', as: 'remove_user'
 

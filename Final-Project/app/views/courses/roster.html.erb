@@ -1,10 +1,19 @@
 <% provide(:title, 'Course Roster') %>
 <h1>Course Roster for <%= @course.name %></h1>
 
-<%# <%= link_to 'Add Student', new_user_path %>
+<% if current_user.teacher? %>
+  <%= form_with url: course_enrollments_path(@course), method: :post do |form| %>
+    <%= form.label :email, "Email" %>
+    <%= form.email_field :user_email, placeholder: "Enter student's Email", required: true %>
+    <%= form.hidden_field :course_id, value: @course.id %>
+    <%= form.submit 'Add Student' %>
+  <% end %>
+<% end %>
+
+
 
 <% if @course.users.any? %>
-  <table >
+  <table>
     <thead>
       <tr>
         <th>#</th>
@@ -20,9 +29,8 @@
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td>
-          <%# <%= button_to 'Drop', remove_user_course_path(@course, user), method: :delete %>        
+            <%= button_to 'Drop', course_enrollment_path(user_id: user.id, course_id: @course.id), method: :delete, data: {confirm: "Are you sure?"} %>
           </td>
-          <br>
         </tr>
       <% end %>
     </tbody>

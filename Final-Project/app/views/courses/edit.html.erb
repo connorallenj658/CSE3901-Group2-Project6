@@ -1,2 +1,25 @@
-<h1>Courses#show</h1>
-<p>Find me in app/views/courses/show.html.erb</p>
+<% provide(:title, 'Course Roster') %>
+<h1>Course Roster</h1>
+
+<% @courses.users.each do |course| %>
+    <p>
+        <strong>ID:</strong> <%= user.id %> 
+        <br>
+        <strong>Name:</strong> <%= user.name %> 
+        <br>
+        <strong>Email:</strong> <%= user.email %> 
+        <br>
+        <strong>Created_at:</strong> <%= user.created_at %> 
+        <br>
+        <strong>Updated_at:</strong> <%= user.updated_at %> 
+        <br>
+        #<br>
+        #<%= link_to 'Edit', edit_course_path(course) %>
+
+        <%= form_with model: course, method: :delete do |form| %>
+            <%= form.submit 'Delete' %>
+        <% end %>
+
+        <strong>-----------------------------------</strong>
+    </p>
+<% end %>

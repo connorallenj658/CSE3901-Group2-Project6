@@ -1,8 +1,9 @@
 class PresentationsController < ApplicationController
-  before_action :authenticate_user! # Ensure users are logged in
+  before_action :authenticate_user!
+  before_action :set_presentation, only: [:show, :edit, :update, :destroy]
 
   def index
-    @presentations = Presentation.all
+    @presentations = Presentation.all.order(date: :asc) # All presentations sorted by date
   end
 
   def new
@@ -21,13 +22,36 @@ class PresentationsController < ApplicationController
   end
 
   def show
-    @presentation = Presentation.find(params[:id]) # Fetch the presentation by ID
-    @evaluations = @presentation.evaluations # Fetch all evaluations for the presentation
+    @evaluations = @presentation.evaluations
+
+    if current_user.teacher?
+      @is_teacher = true
+    elsif current_user == @presentation.user
+      @is_presenter = true
+    else
+      @is_student = true
+      @evaluation_exists = @evaluations.where(user_id: current_user.id).exists?
+    end
+  end
+
+  def edit
+    unless current_user.teacher? || @presentation.user == current_user
+      redirect_to presentations_path, alert: "You are not authorized to edit this presentation."
+    end
+  end
+
+  def update
+    if @presentation.update(presentation_params)
+      redirect_to presentation_path(@presentation), notice: "Presentation updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
     @presentation = Presentation.find(params[:id])
-    if @presentation.user == current_user # Only allow the owner to delete
+
+    if current_user.teacher? || @presentation.user == current_user
       @presentation.destroy
       redirect_to presentations_path, notice: "Presentation deleted successfully."
     else
@@ -36,6 +60,10 @@ class PresentationsController < ApplicationController
   end
 
   private
+
+  def set_presentation
+    @presentation = Presentation.find(params[:id])
+  end
 
   def presentation_params
     params.require(:presentation).permit(:title, :date, :description)

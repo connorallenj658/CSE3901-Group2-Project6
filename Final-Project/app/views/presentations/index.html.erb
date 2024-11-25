@@ -1,20 +1,14 @@
 <h1>All Presentations</h1>
-<% if current_user.teacher? %>
-  <%= link_to "Create a New Presentation", new_presentation_path %>
-<% end %>
-<% if current_user.courses.nil? %>
-  <% @current_user.courses.each do |course| %>
-    <h2><%= course.name %></h3>
-    <% @course.presentations each do |presentation| %>
-      <div>
-        <h3><%= presentation.title %></h2>
-        <p><strong>Created by:</strong> <%= presentation.user.name || presentation.user.email %></p>
-        <p><strong>Date:</strong> <%= presentation.date %></p>
-        <p><strong>Description:</strong> <%= presentation.description %></p>
-        <%= link_to "View", presentation_path(presentation) %>
-        <br>
-      </div>
+
+<% @presentations.each do |presentation| %>
+  <div>
+    <h2><%= link_to presentation.title, presentation_path(presentation) %></h2>
+    <p><strong>Date:</strong> <%= presentation.date.strftime("%B %d, %Y") %></p>
+    <p><strong>Description:</strong> <%= presentation.description %></p>
+
+    <% if current_user.teacher? || current_user == presentation.user %>
+      <%= button_to "Delete Presentation", presentation_path(presentation), method: :delete, data: { confirm: "Are you sure?" } %>
+      <%= link_to "Edit Presentation", edit_presentation_path(presentation) %>
     <% end %>
-    <br><br>
-  <% end %>
+  </div>
 <% end %>

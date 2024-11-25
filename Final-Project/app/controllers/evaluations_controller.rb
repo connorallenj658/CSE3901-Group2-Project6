@@ -1,5 +1,4 @@
 class EvaluationsController < ApplicationController
-  before_action :authenticate_user!
   def index
     @presentation = Presentation.find(params[:presentation_id])
     @evaluations = @presentation.evaluations
@@ -18,8 +17,7 @@ class EvaluationsController < ApplicationController
     if @evaluation.save
       redirect_to presentation_path(@presentation), notice: "Evaluation submitted successfully."
     else
-      flash[:alert] = "Unable to submit evaluation."
-      redirect_to presentation_path(@presentation)
+      redirect_to presentation_path(@presentation), alert: @evaluation.errors.full_messages.to_sentence
     end
   end
 

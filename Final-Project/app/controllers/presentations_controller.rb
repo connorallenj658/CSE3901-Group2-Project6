@@ -1,9 +1,9 @@
 class PresentationsController < ApplicationController
-  before_action :authenticate_user! # Ensure users are logged in
-  before_action :set_course
+  before_action :authenticate_user!
+  before_action :set_presentation, only: [:show, :edit, :update, :destroy]
 
   def index
-    @presentations = Presentation.all.order(date: :asc) # Fetch all presentations sorted by date
+    @presentations = Presentation.all.order(date: :asc) # All presentations sorted by date
   end
 
   def new
@@ -25,20 +25,29 @@ class PresentationsController < ApplicationController
   end
 
   def show
-    @presentation = Presentation.find(params[:id])
     @evaluations = @presentation.evaluations
 
     if current_user.teacher?
-      # Teacher logic
       @is_teacher = true
     elsif current_user == @presentation.user
-      # Presenter logic
       @is_presenter = true
     else
-      # Non-presenter student logic
       @is_student = true
-      # Check if the student has already evaluated this presentation
       @evaluation_exists = @evaluations.where(user_id: current_user.id).exists?
+    end
+  end
+
+  def edit
+    unless current_user.teacher? || @presentation.user == current_user
+      redirect_to presentations_path, alert: "You are not authorized to edit this presentation."
+    end
+  end
+
+  def update
+    if @presentation.update(presentation_params)
+      redirect_to presentation_path(@presentation), notice: "Presentation updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -73,6 +82,10 @@ class PresentationsController < ApplicationController
   end
 
   private
+
+  def set_presentation
+    @presentation = Presentation.find(params[:id])
+  end
 
   def presentation_params
     params.require(:presentation).permit(:title, :date, :credits, :description, :course_id)

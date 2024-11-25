@@ -3,8 +3,7 @@
 <p><strong>Date:</strong> <%= @presentation.date.strftime("%B %d, %Y") %></p>
 <p><strong>Description:</strong> <%= @presentation.description %></p>
 
-<% if current_user.teacher? %>
-  <!-- Teacher's View -->
+<% if @is_teacher %>
   <h2>Submit Final Grade</h2>
   <%= form_with model: [@presentation, Evaluation.new], local: true do |f| %>
     <div>
@@ -19,49 +18,11 @@
       <%= f.submit "Submit Grade" %>
     </div>
   <% end %>
-
-  <h2>Student Evaluations</h2>
-  <ul>
-    <% @evaluations.each do |evaluation| %>
-      <li>
-        <strong><%= evaluation.user.name %>:</strong> 
-        <%= evaluation.score %> - <%= evaluation.comment %>
-      </li>
-    <% end %>
-  </ul>
-
-  <%= button_to "Delete Presentation", presentation_path(@presentation), method: :delete, data: { confirm: "Are you sure?" } %>
-
-<% elsif @presentation.user == current_user %>
-  <!-- Presenter's View -->
-  <h2>Teacher's Final Feedback</h2>
-  <% teacher_evaluation = @evaluations.find_by(user_id: User.where(role: "teacher").pluck(:id)) %>
-  <% if teacher_evaluation %>
-    <p><strong>Grade:</strong> <%= teacher_evaluation.score %></p>
-    <p><strong>Comment:</strong> <%= teacher_evaluation.comment %></p>
-  <% else %>
-    <p>No feedback provided yet.</p>
-  <% end %>
-
-  <h2>Student Evaluations</h2>
-  <ul>
-    <% @evaluations.each do |evaluation| %>
-      <li>
-        <strong><%= evaluation.user.name %>:</strong> 
-        <%= evaluation.score %> - <%= evaluation.comment %>
-      </li>
-    <% end %>
-  </ul>
-
-  <%= link_to "Edit Presentation", edit_presentation_path(@presentation), class: "button" %>
-  <%= button_to "Delete Presentation", presentation_path(@presentation), method: :delete, data: { confirm: "Are you sure?" } %>
-
-<% else %>
-  <!-- General Student's View -->
-  <h2>Submit Your Evaluation</h2>
+<% elsif @is_student %>
   <% if @evaluation_exists %>
     <p>You have already submitted an evaluation.</p>
   <% else %>
+    <h2>Submit Your Evaluation</h2>
     <%= form_with model: [@presentation, Evaluation.new], local: true do |f| %>
       <div>
         <%= f.label :score, "Score" %><br>
@@ -77,3 +38,13 @@
     <% end %>
   <% end %>
 <% end %>
+<% if current_user.teacher? || current_user == @presentation.user %>
+  <%= button_to "Delete Presentation", presentation_path(@presentation), method: :delete, data: { confirm: "Are you sure you want to delete this presentation?" } %>
+<% end %>
+
+<h2>Student Evaluations</h2>
+<ul>
+  <% @evaluations.each do |evaluation| %>
+    <li><strong><%= evaluation.user.name %>:</strong> <%= evaluation.score %> - <%= evaluation.comment %></li>
+  <% end %>
+</ul>

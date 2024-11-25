@@ -1,11 +1,13 @@
-class CreateCourses < ActiveRecord::Migration[7.2]
+class CreateCourses < ActiveRecord::Migration[7.0]
   def change
-    create_table :courses do |t|
-      t.string :name
-      t.string :description
-      t.integer :credits
+    unless table_exists?(:courses)
+      create_table :courses do |t|
+        t.string :name
+        t.string :description
+        t.integer :credits
 
-      t.timestamps
+        t.timestamps
+      end
     end
   end
 end

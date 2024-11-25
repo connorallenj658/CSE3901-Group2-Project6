@@ -1,8 +1,9 @@
 class PresentationsController < ApplicationController
   before_action :authenticate_user! # Ensure users are logged in
+  before_action :set_course
 
   def index
-    @presentations = Presentation.all
+    
   end
 
   def new
@@ -12,10 +13,12 @@ class PresentationsController < ApplicationController
   def create
     @presentation = Presentation.new(presentation_params)
     @presentation.user = current_user # Associate the presentation with the logged-in user
+    @presentation.course = @course
 
     if @presentation.save
-      redirect_to presentations_path, notice: "Presentation created successfully."
+      redirect_to course_presentations_path(@course), notice: "Presentation created successfully."
     else
+      flash[:alert] = @presentation.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
   end
@@ -38,6 +41,13 @@ class PresentationsController < ApplicationController
   private
 
   def presentation_params
-    params.require(:presentation).permit(:title, :date, :description)
+    params.require(:presentation).permit(:title, :date, :credits, :description, :course_id)
+  end
+
+  def set_course
+    @course = Course.find(params[:course_id]) if params[:course_id].present?
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = "Course not found."
+    redirect_to courses_path
   end
 end

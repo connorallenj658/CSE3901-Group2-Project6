@@ -1,20 +1,15 @@
-<h1>All Presentations</h1>
+<h1>All Presentations of <%= @course.name%></h1>
 <% if current_user.teacher? %>
-  <%= link_to "Create a New Presentation", new_presentation_path %>
+  <%= link_to "Create a New Presentation", new_course_presentation_path(@course) %>
 <% end %>
-<% if current_user.courses.nil? %>
-  <% @current_user.courses.each do |course| %>
-    <h2><%= course.name %></h3>
-    <% @course.presentations each do |presentation| %>
+    <h2><%= @course.name %></h3>
+    <% @course.presentations.each do |presentation| %>
       <div>
         <h3><%= presentation.title %></h2>
         <p><strong>Created by:</strong> <%= presentation.user.name || presentation.user.email %></p>
         <p><strong>Date:</strong> <%= presentation.date %></p>
         <p><strong>Description:</strong> <%= presentation.description %></p>
-        <%= link_to "View", presentation_path(presentation) %>
+        <%= link_to "Presentation", course_presentation_path(@course, presentation.id) %>
         <br>
       </div>
     <% end %>
-    <br><br>
-  <% end %>
-<% end %>

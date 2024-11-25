@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    # @user is already set by `set_user`
+
   end
 
   def edit

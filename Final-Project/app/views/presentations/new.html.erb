@@ -1,6 +1,6 @@
 <h1>Create a New Presentation</h1>
 
-<%= form_with model: @presentation, local: true do |f| %>
+<%= form_with model: @presentation, url: course_presentations_path(@course), local: true do |f| %>
   <div>
     <%= f.label :title, "Presentation Title" %><br>
     <%= f.text_field :title %>
@@ -30,4 +30,4 @@
   </div>
 <% end %>
 
-<%= link_to "Back to Presentations", presentations_path %>
+<%# = link_to "Back to Presentations", index_course_presentation_path(@course) %>

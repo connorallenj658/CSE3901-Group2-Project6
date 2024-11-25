@@ -3,6 +3,8 @@ class Course < ApplicationRecord
     has_many :users, through: :enrollments
     has_many :presentations, dependent: :destroy
 
+    belongs_to :user
+
     validates :name, presence: true, length: { maximum: 100}
     validates :description, presence: true, length: { maximum: 200}
     validates :credits, presence: true, numericality: {only_integer: true},

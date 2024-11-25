@@ -2,7 +2,7 @@ class PresentationsController < ApplicationController
   before_action :authenticate_user! # Ensure users are logged in
 
   def index
-    @presentations = Presentation.all
+    @presentations = Presentation.all.order(date: :asc) # Fetch all presentations sorted by date
   end
 
   def new
@@ -20,13 +20,6 @@ class PresentationsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
-private
-
-def evaluation_params
-  params.require(:evaluation).permit(:score, :comment)
-end
-
 
   def show
     @presentation = Presentation.find(params[:id])
@@ -49,11 +42,30 @@ end
 
   def destroy
     @presentation = Presentation.find(params[:id])
-    if @presentation.user == current_user # Only allow the owner to delete
+
+    if current_user.teacher? || @presentation.user == current_user
       @presentation.destroy
       redirect_to presentations_path, notice: "Presentation deleted successfully."
     else
       redirect_to presentations_path, alert: "You are not authorized to delete this presentation."
+    end
+  end
+
+  # Add edit functionality as required
+  def edit
+    @presentation = Presentation.find(params[:id])
+    if @presentation.user != current_user && !current_user.teacher?
+      redirect_to presentations_path, alert: "You are not authorized to edit this presentation."
+    end
+  end
+
+  def update
+    @presentation = Presentation.find(params[:id])
+
+    if @presentation.update(presentation_params)
+      redirect_to presentation_path(@presentation), notice: "Presentation updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -62,4 +74,13 @@ end
   def presentation_params
     params.require(:presentation).permit(:title, :date, :description)
   end
-end
+
+  private
+
+  def presentation_params
+    params.require(:presentation).permit(:title, :date, :description)
+  end
+  def evaluation_params
+    params.require(:evaluation).permit(:score, :comment)
+  end
+end 

@@ -1,20 +1,35 @@
 <h1>All Presentations</h1>
-<% if current_user.teacher? %>
-  <%= link_to "Create a New Presentation", new_presentation_path %>
-<% end %>
-<% if current_user.courses.nil? %>
-  <% @current_user.courses.each do |course| %>
-    <h2><%= course.name %></h3>
-    <% @course.presentations each do |presentation| %>
-      <div>
-        <h3><%= presentation.title %></h2>
-        <p><strong>Created by:</strong> <%= presentation.user.name || presentation.user.email %></p>
-        <p><strong>Date:</strong> <%= presentation.date %></p>
-        <p><strong>Description:</strong> <%= presentation.description %></p>
-        <%= link_to "View", presentation_path(presentation) %>
-        <br>
-      </div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Presenter</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @presentations.each do |presentation| %>
+      <tr>
+        <td><%= link_to presentation.title, presentation_path(presentation) %></td>
+        <td><%= presentation.date.strftime("%B %d, %Y") %></td>
+        <td><%= presentation.description %></td>
+        <td><%= presentation.user.name %> (<%= presentation.user.email %>)</td>
+        <td>
+          <% if current_user.teacher? || presentation.user == current_user %>
+            <%= link_to "Edit", edit_presentation_path(presentation), class: "btn btn-primary" %>
+            <%= button_to "Delete", presentation_path(presentation), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %>
+          <% elsif current_user.student? && presentation.user != current_user %>
+            <%= link_to "Evaluate", new_presentation_evaluation_path(presentation), class: "btn btn-secondary" %>
+          <% else %>
+            <em>N/A</em>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
-    <br><br>
-  <% end %>
-<% end %>
+  </tbody>
+</table>
+
+<%= link_to "Create New Presentation", new_presentation_path, class: "btn btn-success" %>

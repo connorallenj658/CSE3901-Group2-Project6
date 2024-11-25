@@ -1,16 +1,15 @@
-<h2>Evaluations</h2>
+<h1>Evaluation Details</h1>
 
-<% if @evaluations.any? %>
-  <ul>
-    <% @evaluations.each do |evaluation| %>
-      <li>
-        <strong>Score:</strong> <%= evaluation.score %> |
-        <strong>Comment:</strong> <%= evaluation.comment %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No evaluations have been submitted for this presentation yet.</p>
-<% end %>
+<p><strong>Score:</strong> <%= @evaluation.score %></p>
+<p><strong>Comment:</strong> <%= @evaluation.comment %></p>
 
-<%= link_to "Back to Presentations", presentations_path %>
+<h2>Presentation Details</h2>
+<p><strong>Title:</strong> <%= @presentation.title %></p>
+<p><strong>Date:</strong> <%= @presentation.date.strftime("%B %d, %Y") %></p>
+<p><strong>Description:</strong> <%= @presentation.description %></p>
+
+<h2>Submitted By</h2>
+<p><strong>Student Name:</strong> <%= @evaluation.user.name %></p>
+<p><strong>Email:</strong> <%= @evaluation.user.email %></p>
+
+<%= link_to "Back to Presentation", presentation_path(@presentation) %>

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   # Nested Resources for Presentations and Evaluations
   resources :presentations do
-    resources :evaluations, only: [:new, :create, :index]
+    resources :evaluations, only: [:new, :create, :index, :show]
   end
 
 

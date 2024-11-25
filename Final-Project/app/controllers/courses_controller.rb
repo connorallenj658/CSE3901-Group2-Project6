@@ -21,6 +21,8 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)  # use course_params, not user_params
     @course.user = current_user
     if @course.save
+      @enrollment = Enrollment.new(current_user.id, @course.id)
+      @enrollment.save
       #flash[:success] = "Hello and Welcome"
       redirect_to course_path(@course), notice: "Course was successfully created!"
     else

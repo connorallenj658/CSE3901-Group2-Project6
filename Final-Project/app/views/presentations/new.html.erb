@@ -6,16 +6,25 @@
     <%= f.text_field :title %>
   </div>
 
+  <br>
   <div>
     <%= f.label :date, "Presentation Date" %><br>
     <%= f.date_select :date %>
   </div>
 
-  div>
+  <br>
+
+  <div>
+    <%= f.label :credits, "Presenter Email" %><br>
+    <%= f.text_field :credits %>
+  </div>
+<br>
+  <div>
     <%= f.label :description, "Presentation Description" %><br>
     <%= f.text_area :description %>
   </div>
-
+  <br>
+  <br>
   <div>
     <%= f.submit "Create Presentation" %>
   </div>

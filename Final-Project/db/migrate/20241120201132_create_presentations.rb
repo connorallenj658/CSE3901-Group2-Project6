@@ -3,8 +3,9 @@ class CreatePresentations < ActiveRecord::Migration[7.2]
     create_table :presentations do |t|
       t.string :title
       t.datetime :date
-
       t.timestamps
+      t.string :description
+      t.integer :credits
     end
   end
 end

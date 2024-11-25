@@ -16,6 +16,20 @@ class CoursesController < ApplicationController
       #redirect_to courses_path  
     end
   end
+
+  def roster
+    @course = Course.find_by_id(params[:id])
+    if @course.nil?
+      flash[:alert] = 'Course not found.'
+      redirect_to courses_path
+    else
+      @users = @course.users
+      if @users.nil? || @users.empty?
+        flash[:notice] = 'No students enrolled in this course.'
+      end
+    end
+  end
+  
   
   def create
     @course = Course.new(course_params)  # use course_params, not user_params

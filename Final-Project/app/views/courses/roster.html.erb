@@ -1,0 +1,32 @@
+<% provide(:title, 'Course Roster') %>
+<h1>Course Roster for <%= @course.name %></h1>
+
+<%# <%= link_to 'Add Student', new_user_path %>
+
+<% if @course.users.any? %>
+  <table >
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @course.users.each_with_index do |user, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+          <%# <%= button_to 'Drop', remove_user_course_path(@course, user), method: :delete %>        
+          </td>
+          <br>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No users are currently enrolled in this course.</p>
+<% end %>

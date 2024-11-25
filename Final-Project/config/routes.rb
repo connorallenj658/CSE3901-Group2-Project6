@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   
   # Custom Routes for Courses (if needed)
   resources :courses, only: [:index, :show, :new, :create, :update, :destroy]
-
-  #get "/courses/:id", to: "courses#show"
-  get "courses/:id/edit", to: "courses#edit", as: "edit_course"
+  
+  get 'courses/:id/roster', to: 'courses#roster', as: 'course_roster'
+  delete 'remove_user/:user_id', to: 'courses#remove_user', as: 'remove_user'
 
   # User Management (excluding `new` and `create` since Devise handles sign-up)
   resources :users, except: [:new, :create]

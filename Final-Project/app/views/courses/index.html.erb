@@ -2,35 +2,37 @@
 <h1>Courses</h1>
 
 <% if current_user.teacher? %>
-  <p><%= link_to "Create New Course", "courses/new"%></p>
+  <p><%= link_to "Create New Course", new_course_path %></p>
 <% end %>
 
-<% if current_user.courses == nil %>
+<% if current_user.courses.empty? %>
   <% if current_user.teacher? %>
-    <p> You are not running any active courses at this time. Click the ADD COURSE button to begin </p>
+    <p>You are not running any active courses at this time. Click the ADD COURSE button to begin.</p>
   <% else %>
-    <p> You do not belong to any active courses at this time. Contact your teacher if you are meant to be part of a course </p>
-  <% end  %>
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Credits</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% current_user.courses.each do |course| %>
+    <p>You do not belong to any active courses at this time. Contact your teacher if you are meant to be part of a course.</p>
+  <% end %>
+<% else %>
+  <table>
+    <thead>
       <tr>
-        <td><%= course.name %></td>
-        <td><%= course.description %></td>
-        <td><%= course.credits %></td>
-        <td><%= link_to 'View', course_path(course) %></td>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Credits</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
+    </thead>
+    <tbody>
+      <% current_user.courses.each do |course| %>
+        <tr>
+          <td><%= course.name %></td>
+          <td><%= course.description %></td>
+          <td><%= course.credits %></td>
+          <td>
+            <%= link_to 'View', course_path(course) %> |
+            <%= link_to "View Roster", course_roster_path(course) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

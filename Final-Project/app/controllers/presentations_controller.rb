@@ -83,8 +83,16 @@ class PresentationsController < ApplicationController
   end
 
   def presentation_params
-    params.require(:presentation).permit(:title, :date, :description)
+    params.require(:presentation).permit(:title, :date, :credits, :description, :course_id)
   end
+
+  def set_course
+    @course = Course.find(params[:course_id]) if params[:course_id].present?
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = "Course not found."
+    redirect_to courses_path
+  end
+
   def evaluation_params
     params.require(:evaluation).permit(:score, :comment)
   end

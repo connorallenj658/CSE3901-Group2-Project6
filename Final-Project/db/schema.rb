@@ -49,11 +49,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_26_000135) do
     t.integer "credits"
     t.integer "user_id", null: false
     t.text "description"
-<<<<<<< HEAD
     t.integer "course_id", null: false
     t.index ["course_id"], name: "index_presentations_on_course_id"
-=======
->>>>>>> 2f30cafdfa0112ede34e3f3b9dad76c63a280253
     t.index ["user_id"], name: "index_presentations_on_user_id"
   end
 

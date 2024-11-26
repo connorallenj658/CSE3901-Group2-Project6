@@ -1,7 +1,14 @@
-<h1>All Presentations of <%= @course.name%></h1>
+<h1>All Presentations of <%= @course.name %></h1>
 <% if current_user.teacher? %>
   <%= link_to "Create a New Presentation", new_course_presentation_path(@course) %>
 <% end %>
+<% if @course.presentations.empty? %>
+  <% if current_user.teacher? %>
+    <p>You currently have no presentations. Click "Create a New Presentation" to create one</p>
+  <% else %>
+     <p>The teacher has not created any presentations yet<p>
+  <% end %>
+<% else %>
 <table>
   <thead>
     <tr>
@@ -21,10 +28,10 @@
         <td><%= presentation.user.name %> (<%= presentation.user.email %>)</td>
         <td>
           <% if current_user.teacher? || presentation.user == current_user %>
-            <%= link_to "Edit", edit_presentation_path(presentation), class: "btn btn-primary" %>
-            <%= button_to "Delete", presentation_path(presentation), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %>
+            <%= link_to "Edit", edit_course_presentation_path(@course, presentation.id), class: "btn btn-primary" %>
+            <%= button_to "Delete", course_presentation_path(@course, presentation.id), method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete this presentation?" } }, class: "btn btn-danger" %>
           <% elsif current_user.student? && presentation.user != current_user %>
-            <%= link_to "Evaluate", new_presentation_evaluation_path(presentation), class: "btn btn-secondary" %>
+            <%= link_to "Evaluate", new_course_presentation_evaluation_path(presentation), class: "btn btn-secondary" %>
           <% else %>
             <em>N/A</em>
           <% end %>
@@ -35,3 +42,4 @@
 </table>
 
 <%= link_to "Create New Presentation", new_course_presentation_path(@course), class: "btn btn-success" %>
+<% end %>

@@ -1,6 +1,7 @@
 class PresentationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_presentation, only: [:show, :edit, :update, :destroy]
+  before_action :set_course
 
   def index
     @presentations = Presentation.all.order(date: :asc) # All presentations sorted by date
@@ -39,13 +40,13 @@ class PresentationsController < ApplicationController
 
   def edit
     unless current_user.teacher? || @presentation.user == current_user
-      redirect_to presentations_path, alert: "You are not authorized to edit this presentation."
+      redirect_to course_presentations_path(@course), alert: "You are not authorized to edit this presentation."
     end
   end
 
   def update
     if @presentation.update(presentation_params)
-      redirect_to presentation_path(@presentation), notice: "Presentation updated successfully."
+      redirect_to course_presentations_path(@course), notice: "Presentation updated successfully."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -53,31 +54,26 @@ class PresentationsController < ApplicationController
 
 
   def destroy
-    @presentation = Presentation.find(params[:id])
-
     if current_user.teacher? || @presentation.user == current_user
       @presentation.destroy
-      redirect_to presentations_path, notice: "Presentation deleted successfully."
+      redirect_to course_presentations_path(@course), notice: "Presentation deleted successfully."
     else
-      redirect_to presentations_path, alert: "You are not authorized to delete this presentation."
+      redirect_to course_presentations_path(@course), alert: "You are not authorized to delete this presentation."
     end
   end
 
   # Add edit functionality as required
   def edit
-    @presentation = Presentation.find(params[:id])
     if @presentation.user != current_user && !current_user.teacher?
-      redirect_to presentations_path, alert: "You are not authorized to edit this presentation."
+      redirect_to course_presentations_path(@course), alert: "You are not authorized to edit this presentation."
     end
   end
 
   def update
-    @presentation = Presentation.find(params[:id])
-
     if @presentation.update(presentation_params)
-      redirect_to presentation_path(@presentation), notice: "Presentation updated successfully."
+      redirect_to course_presentations_path(@course), notice: "Presentation updated successfully."
     else
-      render :edit, status: :unprocessable_entity
+      render 'edit', status: :unprocessable_entity
     end
   end
 

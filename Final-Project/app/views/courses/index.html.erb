@@ -28,7 +28,7 @@
           <td><%= course.description %></td>
           <td><%= course.credits %></td>
           <td>
-            <%= link_to 'View', course_path(course) %> |
+            <%= link_to 'View', course_presentations_path(course.id) %> |
             <%= link_to "View Roster", course_roster_path(course) %>
           </td>
         </tr>

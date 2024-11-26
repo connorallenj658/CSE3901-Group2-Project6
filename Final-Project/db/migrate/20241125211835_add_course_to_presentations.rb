@@ -1,5 +1,6 @@
-class AddCourseToPresentations < ActiveRecord::Migration[7.2]
+class AddCourseToPresentations < ActiveRecord::Migration[7.0]
   def change
-    add_reference :presentations, :course, null: false, foreign_key: true
+    # Temporarily allow null values to bypass existing records
+    add_reference :presentations, :course, foreign_key: true
   end
 end

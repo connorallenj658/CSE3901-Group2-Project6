@@ -3,7 +3,7 @@ class Evaluation < ApplicationRecord
   belongs_to :user # The user who submits the evaluation
 
   validates :score, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
-  validates :comment, presence: true
+  validates :comment, presence: true, length: {maximum: 200}
   validate :student_cannot_evaluate_multiple_times
 
   private

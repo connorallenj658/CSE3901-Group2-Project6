@@ -12,7 +12,8 @@ class User < ApplicationRecord
   has_many :presentations
 
   
-  validates :name, presence:true 
+  validates :name, presence:true,
+  length:{maximum: 75}
 
   validates :email, presence:true, 
   length:{maximum: 50},

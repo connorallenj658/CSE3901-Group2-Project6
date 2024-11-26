@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_25_211835) do
     t.integer "credits"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.integer "user_id",
   end
 
   create_table "enrollments", force: :cascade do |t|

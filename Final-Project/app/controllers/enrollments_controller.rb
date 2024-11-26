@@ -23,19 +23,19 @@ class EnrollmentsController < ApplicationController
     end
     @enrollment = Enrollment.new(user_id: user.id, course_id: params[:course_id])
     if @enrollment.save
-      redirect_to course_path(params[:course_id]), notice: "Student enrolled"
+      redirect_to course_roster_path(params[:course_id]), notice: "Student enrolled"
     else
-      redirect_to course_path(params[:course_id]), alert: "Student could not be enrolled"
+      redirect_to course_roster_path(params[:course_id]), alert: "Student could not be enrolled"
     end
   end
 
   def destroy
     @enrollment = Enrollment.find_by(user_id: params[:user_id], course_id: params[:course_id])
     if @enrollment.nil?
-      redirect_to courses_path, alert: 'Enrollment not found.'
+      redirect_to course_roster_path(params[:course_id]), alert: 'Enrollment not found.'
     else
       @enrollment.destroy
-      redirect_to courses_path, notice: 'Enrollment successfully deleted.'
+      redirect_to course_roster_path(params[:course_id]), notice: 'Enrollment successfully deleted.'
     end
   end
     

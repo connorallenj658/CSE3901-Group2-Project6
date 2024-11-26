@@ -38,7 +38,7 @@ class CoursesController < ApplicationController
       @enrollment = Enrollment.new(user_id: current_user.id, course_id: @course.id)
       @enrollment.save
       #flash[:success] = "Hello and Welcome"
-      redirect_to course_path(@course), notice: "Course was successfully created!"
+      redirect_to courses_path, notice: "Course was successfully created!"
     else
       render 'new', status: :unprocessable_entity
     end

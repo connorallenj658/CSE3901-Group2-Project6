@@ -1,7 +1,8 @@
-<h1><%= @presentation.title %></h1>
-<p><strong>Presenters:</strong> <%= @presentation.user.name %></p>
-<p><strong>Date:</strong> <%= @presentation.date.strftime("%B %d, %Y") %></p>
-<p><strong>Description:</strong> <%= @presentation.description %></p>
+<div class="presentation-container">
+  <h1 class="presentation-title"><%= @presentation.title %></h1>
+  <p class="presentation-meta"><strong>Presenters:</strong> <%= @presentation.user.name %></p>
+  <p class="presentation-meta"><strong>Date:</strong> <%= @presentation.date.strftime("%B %d, %Y") %></p>
+  <p class="presentation-description"><strong>Description:</strong> <%= @presentation.description %></p>
 
 <% if @is_teacher %>
   <h2>Submit Final Grade</h2>

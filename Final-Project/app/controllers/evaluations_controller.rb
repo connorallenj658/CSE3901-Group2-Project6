@@ -1,4 +1,5 @@
 class EvaluationsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @presentation = Presentation.find(params[:presentation_id])
     @evaluations = @presentation.evaluations
@@ -8,6 +9,7 @@ class EvaluationsController < ApplicationController
     @presentation = Presentation.find(params[:presentation_id])
     @evaluation = @presentation.evaluations.build
   end
+  before_action :authenticate_user!
 
   def create
     @presentation = Presentation.find(params[:presentation_id])

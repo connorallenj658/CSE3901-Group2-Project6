@@ -1,0 +1,314 @@
+/* General container for the presentation page */
+.presentation-container {
+    width: 80%;
+    margin: 2em auto;
+    background: #ffffff;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.presentation-title {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    color: #333;
+}
+
+.presentation-meta {
+    margin: 0.5em 0;
+    color: #555;
+}
+
+.presentation-description {
+    font-size: 1.1em;
+    margin: 1em 0;
+    color: #666;
+}
+
+/* Section titles */
+.section-title {
+    font-size: 1.5em;
+    margin: 1.5em 0 1em 0;
+    color: #333;
+}
+
+/* Forms */
+.grade-form,
+.evaluation-form {
+    margin-top: 1em;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+border-radius: 4px;
+}
+
+.form-submit {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+
+.form-submit:hover {
+    background-color: #45a049;
+}
+
+/* Delete button */
+.delete-section {
+    margin-top: 2em;
+}
+
+.delete-button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}
+
+/* Evaluations */
+.evaluations-section {
+    margin-top: 2em;
+}
+
+.evaluation-list {
+    list-style: none;
+    padding: 0;
+}
+
+.evaluation-item {
+    padding: 0.5em 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.evaluation-item:last-child {
+    border-bottom: none;
+}
+
+.info-text {
+    color: #555;
+    margin-top: 1em;
+}
+
+/* General container for the presentation page */
+.presentation-container {
+    width: 80%;
+    margin: 2em auto;
+    background: #ffffff;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .presentation-title {
+        font-size: 2em;
+        margin-bottom: 0.5em;
+        color: #333;
+    }
+    
+    .presentation-meta {
+        margin: 0.5em 0;
+        color: #555;
+    }
+    
+    .presentation-description {
+        font-size: 1.1em;
+    margin: 1em 0;
+    color: #666;
+    }
+    
+    /* Section titles */
+    .section-title {
+        font-size: 1.5em;
+        margin: 1.5em 0 1em 0;
+        color: #333;
+    }
+    
+    /* Forms */
+    .grade-form,
+    .evaluation-form {
+        margin-top: 1em;
+    }
+    
+    .form-group {
+        margin-bottom: 1em;
+    }
+    
+    .form-label {
+        font-weight: bold;
+    }
+    
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 0.5em;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    .form-submit {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 0.5em 1em;
+        cursor: pointer;
+    }
+    
+    .form-submit:hover {
+        background-color: #45a049;
+    }
+    
+    /* Delete button */
+    .delete-section {
+        margin-top: 2em;
+    }
+    
+    .delete-button {
+        background-color: #d9534f;
+        color: white;
+        border: none;
+        padding: 0.5em 1em;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .delete-button:hover {
+        background-color: #c9302c;
+    }
+    
+    /* Evaluations */
+    .evaluations-section {
+        margin-top: 2em;
+    }
+    
+    .evaluation-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .evaluation-item {
+        padding: 0.5em 0;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .evaluation-item:last-child {
+        border-bottom: none;
+    }
+    
+    .info-text {
+        color: #555;
+        margin-top: 1em;
+    }
+    
+    /* General Container */
+    .container {
+        width: 80%;
+        margin: 2em auto;
+    padding: 1em;
+    background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Page Title */
+    .page-title {
+        text-align: center;
+        font-size: 2em;
+        color: #333;
+        margin-bottom: 1.5em;
+    }
+    
+    /* Presentation Card */
+    .presentation-card {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1.5em;
+        margin-bottom: 1.5em;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.2s ease-in-out;
+    }
+    
+    .presentation-card:hover {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Presentation Title */
+.presentation-title {
+    font-size: 1.5em;
+    color: #007bff;
+    margin-bottom: 0.5em;
+}
+
+.presentation-title .presentation-link {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.presentation-title .presentation-link:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* Meta Information */
+.presentation-meta,
+.presentation-description {
+    margin: 0.5em 0;
+    color: #555;
+}
+
+/* Actions Section */
+.actions {
+    margin-top: 1em;
+    display: flex;
+        gap: 0.5em;
+}
+
+/* Buttons */
+.button {
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: 0.9em;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .edit-button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+    }
+    
+    .edit-button:hover {
+        background-color: #45a049;
+    }
+    
+    .delete-button {
+        background-color: #d9534f;
+        color: white;
+        border: none;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}

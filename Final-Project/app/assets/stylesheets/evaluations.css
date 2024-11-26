@@ -1,0 +1,40 @@
+/* app/assets/stylesheets/evaluations.css */
+
+.evaluation-list {
+    list-style: none;
+    padding: 0;
+}
+
+.evaluation-list li {
+    padding: 1em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #ddd;
+}
+
+.evaluation-list li:last-child {
+    border-bottom: none;
+}
+
+.form-wrapper {
+    margin-top: 2em;
+}
+
+.form-wrapper label {
+    display: block;
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+.form-wrapper input,
+.form-wrapper textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-wrapper button {
+    margin-top: 1em;
+    display: inline-block;
+}

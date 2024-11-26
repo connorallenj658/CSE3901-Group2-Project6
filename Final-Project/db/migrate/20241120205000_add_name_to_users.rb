@@ -1,5 +1,7 @@
 class AddNameToUsers < ActiveRecord::Migration[7.2]
   def change
-    add_column :users, :name, :string, default: "default"
+    unless column_exists?(:users, :name)
+      add_column :users, :name, :string, default: "default"
+    end
   end
 end

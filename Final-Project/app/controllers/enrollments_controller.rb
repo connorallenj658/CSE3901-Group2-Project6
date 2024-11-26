@@ -11,27 +11,21 @@ class EnrollmentsController < ApplicationController
     @enrollment = Enrollment.find_by_id(params[:id])  
     if @enrollment.nil?
       flash[:alert] = 'Enrollment not found.'
-      #redirect_to courses_path  
     end
   end
 
   def create
-    user = nil
-    if params[:email]
-      user = User.find_by(email: params[:email])
-    elsif params[:user_id]
-      user = User.find_by(id: params[:user_id])
-    end
+    user = User.find_by(email: params[:user_email])
+    
     if user.nil?
       redirect_to course_path(params[:course_id]), alert: "User not found"
       return
     end
-    @enrollment = Enrollment.new(enrollment_params)
+    @enrollment = Enrollment.new(user_id: user.id, course_id: params[:course_id])
     if @enrollment.save
-      #flash[:success] = "Hello and Welcome"
-      redirect_to course_path(@enrollment.course_id), notice: "Student enrolled"
+      redirect_to course_path(params[:course_id]), notice: "Student enrolled"
     else
-      render 'new', status: :unprocessable_entity
+      redirect_to course_path(params[:course_id]), alert: "Student could not be enrolled"
     end
   end
 
@@ -48,6 +42,6 @@ class EnrollmentsController < ApplicationController
   private
     
   def enrollment_params
-    params.require(:enrollment).permit(:user_id, :course_id)
+    params.permit(:user_id, :course_id, :user_email)
   end
 end

@@ -5,6 +5,5 @@ class Presentation < ApplicationRecord
 
   validates :title, presence: true
   validates :date, presence: true
-  validates :credits, presence: true
   validates :description, presence: true
 end

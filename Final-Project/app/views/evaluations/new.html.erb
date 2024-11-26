@@ -2,8 +2,9 @@
   <h1>Evaluations for <%= @presentation.title %></h1>
   
   <ul class="evaluation-list">
-    <% @evaluations.each do |evaluation| %>
+    <% @presentation.evaluations.includes(:user, :presentation).each do |evaluation| %>
       <li>
+        <%puts evaluation.inspect%>
         <strong><%= evaluation.user.name %>:</strong>
         <p>Score: <%= evaluation.score %></p>
         <p>Comment: <%= evaluation.comment %></p>
@@ -13,7 +14,7 @@
 
   <div class="form-wrapper">
     <h2>Submit Evaluation</h2>
-    <%= form_with url: presentation_evaluations_path(@presentation), local: true do |f| %>
+    <%= form_with url: course_presentation_evaluations_path(@presentation), local: true do |f| %>
       <div>
         <%= f.label :score, "Score" %><br>
         <%= f.number_field :score, min: 0, max: 100 %>

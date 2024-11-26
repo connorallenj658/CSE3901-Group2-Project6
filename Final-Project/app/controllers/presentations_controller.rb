@@ -12,15 +12,24 @@ class PresentationsController < ApplicationController
   end
 
   def create
-    @presentation = Presentation.new(presentation_params)
-    @presentation.user = current_user # Associate the presentation with the logged-in user
-    @presentation.course = @course
+    user = User.find_by(email: params[:presentation][:user_email])
+    
+    if user.nil?
+      redirect_to new_course_presentation_path(@course.id)
+      flash[:alert] = "User does not exist"
+      return
+    end
+    date_parts = [params[:presentation]["date(1i)"], params[:presentation]["date(2i)"], params[:presentation]["date(3i)"]]
+    combined_date = Date.new(*date_parts.map(&:to_i))
+    @presentation = Presentation.new(user_id: user.id, title: params[:presentation][:title], description: params[:presentation][:description], date: combined_date)
+    @presentation.course_id = @course.id
 
     # Prevent duplicate evaluations logic is not relevant here for creating presentations
     if @presentation.save
       redirect_to course_presentations_path(@course), notice: "Presentation created successfully."
     else
       flash[:alert] = @presentation.errors.full_messages.join(", ")
+      puts @presentation.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
   end
@@ -83,7 +92,7 @@ class PresentationsController < ApplicationController
   end
 
   def presentation_params
-    params.require(:presentation).permit(:title, :date, :credits, :description, :course_id)
+    params.require(:presentation).permit(:title, :date, :description, :course_id, :user_id, :user_email)
   end
 
   def set_course

@@ -6,7 +6,7 @@ class EvaluationsController < ApplicationController
   end
 
   def new
-    @presentation = Presentation.find(params[:presentation_id])
+    @presentation = Presentation.includes(:evaluations => :user).find(params[:presentation_id])
     @evaluation = @presentation.evaluations.build
   end
   before_action :authenticate_user!
@@ -32,6 +32,6 @@ class EvaluationsController < ApplicationController
   private
 
   def evaluation_params
-    params.require(:evaluation).permit(:score, :comment)
+    params.permit(:score, :comment)
   end
 end

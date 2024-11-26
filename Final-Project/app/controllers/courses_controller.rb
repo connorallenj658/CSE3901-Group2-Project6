@@ -32,7 +32,7 @@ class CoursesController < ApplicationController
   
   
   def create
-    @course = Course.new(course_params)  # use course_params, not user_params
+    @course = Course.new(course_params)  
     @course.user = current_user
     if @course.save
       @enrollment = Enrollment.new(user_id: current_user.id, course_id: @course.id)
@@ -48,7 +48,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
   end
   
-  def update  # 'update' not 'updated'
+  def update 
     @course = Course.find(params[:id])
     if @course.update(course_params)
       redirect_to @course, notice: 'Course was successfully updated'
@@ -66,6 +66,6 @@ class CoursesController < ApplicationController
   private
   
   def course_params
-    params.require(:course).permit(:name, :description, :credits)  # update permitted params
+    params.require(:course).permit(:name, :description, :credits) 
   end
 end

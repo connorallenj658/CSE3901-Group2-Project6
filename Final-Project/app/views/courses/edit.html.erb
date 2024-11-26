@@ -1,23 +1,25 @@
-<% provide(:title, 'Course Roster') %>
-<h1>Course Roster</h1>
+<% provide(:title, 'Edit Course') %>
+<h1>Edit Course</h1>
 
-<% @course.users.each do |course.name| %>
-    <p>
-        <strong>Name:</strong> <%= course.name %> 
-        <br>
-        <strong>Email:</strong> <%= user.email %> 
-        <br>
-        <strong>Created_at:</strong> <%= user.created_at %> 
-        <br>
-        <strong>Updated_at:</strong> <%= user.updated_at %> 
-        <br>
-        <br>
-        <%= link_to 'Edit', edit_user_path(user) %>
+<%= form_with(model: @course, url: course_path(@course), method: :patch) do |f| %>
+  <%= render "course_errors_messages" %>
 
-        <%= form_with model: user, method: :delete do |form| %>
-            <%= form.submit 'Delete' %>
-        <% end %>
+  <div>
+    <%= f.label :name, "Course Name" %><br>
+    <%= f.text_field :name, autofocus: true %>
+  </div>
 
-        <strong>-----------------------------------</strong>
-    </p>
+  <div>
+    <%= f.label :description, "Course Description" %><br>
+    <%= f.text_field :description, autofocus: true %>
+  </div>
+
+  <div>
+    <%= f.label :credits, "Number of Credits" %><br>
+    <%= f.number_field :credits, min: 1, max: 9 %>
+  </div>
+
+  <div>
+    <%= f.submit "Update Course" %>
+  </div>
 <% end %>

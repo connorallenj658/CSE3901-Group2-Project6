@@ -6,7 +6,7 @@
 
 <% if @is_teacher %>
   <h2>Submit Final Grade</h2>
-  <%= form_with model: [@presentation, Evaluation.new], url: course_presentation_evaluations_path(@course, @presentation, @evaluation), local: true do |f| %>
+  <%= form_with url: course_presentation_evaluations_path(@presentation.course, @presentation), local: true do |f| %>
     <div>
       <%= f.label :score, "Grade" %><br>
       <%= f.number_field :score, min: 0, max: 100 %>
@@ -24,7 +24,7 @@
     <p>You have already submitted an evaluation.</p>
   <% else %>
     <h2>Submit Your Evaluation</h2>
-    <%= form_with model: [@presentation, Evaluation.new], url: course_presentation_path(@course, @presentation), local: true do |f| %>
+    <%= form_with url: course_presentation_evaluations_path(@presentation.course, @presentation), local: true do |f| %>
       <div>
         <%= f.label :score, "Score" %><br>
         <%= f.number_field :score, min: 0, max: 100 %>

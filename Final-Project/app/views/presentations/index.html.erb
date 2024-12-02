@@ -1,9 +1,12 @@
+<div class="login-container">
 <h1>All Presentations of <%= @course.name %></h1>
 <% if current_user.teacher? %>
   <%= link_to "Create a New Presentation", new_course_presentation_path(@course) %>
 <% end %>
 <% if @course.presentations.empty? %>
   <% if current_user.teacher? %>
+    <%= link_to "View Roster", course_roster_path(course) %>
+    <br>
     <p>You currently have no presentations. Click "Create a New Presentation" to create one</p>
   <% else %>
      <p>The teacher has not created any presentations yet<p>
@@ -43,3 +46,4 @@
 
 <%= link_to "Create New Presentation", new_course_presentation_path(@course), class: "btn btn-success" %>
 <% end %>
+</div>

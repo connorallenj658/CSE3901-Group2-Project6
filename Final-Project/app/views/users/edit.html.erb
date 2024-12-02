@@ -1,3 +1,4 @@
+<div class="login-container">
 <h1>Edit User</h1>
 
 <%= form_with model: @user, local: true do |f| %>
@@ -5,7 +6,7 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-
+  
   <div>
     <%= f.label :email %><br>
     <%= f.email_field :email %>
@@ -22,3 +23,4 @@
 <% end %>
 
 <%= link_to "Back", users_path %>
+</div>

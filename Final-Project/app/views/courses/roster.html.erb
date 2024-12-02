@@ -1,4 +1,5 @@
 <% provide(:title, 'Course Roster') %>
+<div class="login-container">
 <h1>Course Roster for <%= @course.name %></h1>
 
 <% if current_user.teacher? %>
@@ -38,3 +39,4 @@
 <% else %>
   <p>No users are currently enrolled in this course.</p>
 <% end %>
+</div>

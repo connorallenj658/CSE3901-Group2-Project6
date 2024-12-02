@@ -1,3 +1,4 @@
+<div class="login-container">
 <h1>Edit Presentation</h1>
 
 <%= form_with model: @presentation, url: course_presentation_path(@course), local: true do |f| %>
@@ -5,21 +6,26 @@
     <%= f.label :title, "Presentation Title" %><br>
     <%= f.text_field :title %>
   </div>
+  <br>
   <div>
     <%= f.label :date, "Presentation Date" %><br>
     <%= f.date_select :date %>
   </div>
+  <br>
   <div>
   <%= f.label :credits, "Presentation Credits" %><br>
   <%= f.text_field :credits %>
 </div>
+<br>
   <div>
     <%= f.label :description, "Presentation Description" %><br>
     <%= f.text_area :description %>
   </div>
+  <br>
   <div>
     <%= f.submit "Update Presentation" %>
   </div>
 <% end %>
 <br>
 <%= link_to "Back to Presentations", course_presentations_path(@course) %>
+</div>

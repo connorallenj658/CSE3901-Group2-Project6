@@ -1,36 +1,38 @@
+<div class = "login-container">
 <h2>Sign Up</h2>
 
 <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
+  <br>
   <div>
     <%= f.label :name, "Full Name" %><br>
     <%= f.text_field :name, autofocus: true %>
   </div>
-
+  <br>
   <div>
     <%= f.label :email %><br>
     <%= f.email_field :email %>
   </div>
-
+  <br>
   <div>
     <%= f.label :password %> (6 characters minimum)<br>
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
-
+  <br>
   <div>
     <%= f.label :password_confirmation, "Confirm Password" %><br>
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
-
+  <br>
   <div>
     <%= f.label :role, "Select Role" %><br>
     <%= f.select :role, ["teacher", "student"], include_blank: "Select a Role" %>
   </div>
-
+  <br>
   <div>
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
-
+<br>
 <%= render "devise/shared/links" %>
+</div>

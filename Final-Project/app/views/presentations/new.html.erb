@@ -1,3 +1,4 @@
+<div class="login-container">
 <h1>Create a New Presentation</h1>
 
 <%= form_with model: @presentation, url: course_presentations_path(@course) do |f| %>
@@ -5,22 +6,27 @@
     <%= f.label :title, "Presentation Title" %><br>
     <%= f.text_field :title %>
   </div>
+  <br>
   <div>
     <%= f.label :date, "Presentation Date" %><br>
     <%= f.date_select :date %>
   </div>
+  <br>
   <div>
     <%= f.label :user_email, "Presenter Email" %><br>
     <%= f.email_field :user_email %>
   </div>
-
+  <br>
   <div>
     <%= f.label :description, "Presentation Description" %><br>
     <%= f.text_area :description %>
   </div>
+  <br>
   <div>
     <%= f.submit "Create Presentation" %>
   </div>
 <% end %>
+<br>
 
 <%= link_to "Back to Presentations", course_presentations_path(@course.id) %>
+</div>

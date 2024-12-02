@@ -1,12 +1,13 @@
 <nav>
   <% if user_signed_in? %>
-    Logged in as: <%= current_user.name || current_user.email %> |
-    <%= link_to "Courses", root_path %> |
-    <%# <%= link_to "Create Presentations", new_presentation_path > |%>
-    <%# <%= link_to "All Presentations", presentations_path > | %>
+    <span>Logged in as: <%= current_user.name || current_user.email %></span>
+    <span style="margin: 0 10px;">|</span>
+    <%= link_to "Courses", root_path %>
+    <span style="margin: 0 10px;">|</span>
     <%= button_to "Log Out", destroy_user_session_path, method: :delete %>
   <% else %>
-    <%= link_to "Log In", new_user_session_path %> |
+    <%= link_to "Log In", new_user_session_path %>
+    <span style="margin: 0 10px;">|</span>
     <%= link_to "Sign Up", new_user_registration_path %>
   <% end %>
 </nav>

@@ -149,6 +149,8 @@ border-radius: 4px;
     }
     
     .form-group {
+        max-width: 300px; 
+        width: 100%;
         margin-bottom: 1em;
     }
     
@@ -312,3 +314,9 @@ border-radius: 4px;
 .delete-button:hover {
     background-color: #c9302c;
 }
+
+.login-container { 
+    margin: 3em; 
+    padding: 2em;
+    margin-left: 20px;
+  }

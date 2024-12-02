@@ -1,29 +1,32 @@
 <% provide(:title, 'Create Course') %>
+<div class="login-container">
 <h1>Create Course</h1>
 
 <%= form_with model: resource, url: registration_path(resource_name), local: true do |f| %>
   <%= _course_error_messages! %>
 <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
+  <br>
   <div>
     <%= f.label :name, "Course Name" %><br>
     <%= f.text_field :name, autofocus: true %>
   </div>
-
+  <br>
   <div>
     <%= f.label :description, "Course Description" %><br>
     <%= f.text_field :description, autofocus: true %>
   </div>
-
+  <br>
   <div>
     <%= f.label :credits, "Number of Credits" %><br>
     <%= f.number_field :credits, min: 1, max: 9 %>
  </div>
-
+ <br>
   <div>
     <%= f.submit "Create Course" %>
   </div>
 <% end %>
+<br>
+</div>
 
 

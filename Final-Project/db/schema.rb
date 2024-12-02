@@ -45,9 +45,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_02_200629) do
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
+    t.string "credits"
     t.integer "user_id", null: false
-    t.text "description"
-    t.integer "course_id"
+    t.integer "course_id", null: false
     t.index ["course_id"], name: "index_presentations_on_course_id"
     t.index ["user_id"], name: "index_presentations_on_user_id"
   end
@@ -61,7 +62,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_02_200629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role", default: "student"
-    t.string "name"
+    t.string "name", default: "default"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

@@ -1,5 +1,7 @@
 class EvaluationsController < ApplicationController
   before_action :authenticate_user!
+
+
   def index
     @presentation = Presentation.find(params[:presentation_id])
     @evaluations = @presentation.evaluations
@@ -27,6 +29,18 @@ class EvaluationsController < ApplicationController
   def show
     @evaluation = Evaluation.find(params[:id])
     @presentation = @evaluation.presentation # Fetch the associated presentation
+  end
+
+  def destroy
+    @evaluation = Evaluation.find(params[:id])
+    @course = Course.find(params[:course_id])
+    @presentation = Presentation.find(params[:presentation_id])
+    if current_user.teacher?
+      @evaluation.destroy
+      redirect_to course_presentation_path(@course, @presentation), notice: "Presentation deleted successfully."
+    else
+      redirect_to course_presentation_path(@course, @presentation), alert: "You are not authorized to delete this presentation."
+    end
   end
 
   private

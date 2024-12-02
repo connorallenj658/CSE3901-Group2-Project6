@@ -11,17 +11,37 @@ module FinalProject
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2
 
-    # Please, add to the `ignore` list any other `lib` subdirectories that do
-    # not contain `.rb` files, or that should not be reloaded or eager loaded.
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    # Autoload lib directory but ignore non-Ruby files
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Action Mailer default configurations
+    config.action_mailer.perform_caching = false
+    config.action_mailer.default_options = { from: 'no-reply@yourapp.com' }
+
+    # Add custom eager load paths (e.g., services, interactors)
+    config.eager_load_paths << Rails.root.join("app", "services")
+
+    # Time zone and localization
+    config.time_zone = "Eastern Time (US & Canada)"
+    config.active_record.default_timezone = :local
+    config.i18n.default_locale = :en
+    config.i18n.fallbacks = true
+
+    # Middleware for additional security (optional)
+    # config.middleware.use Rack::Attack
+
+    # Credentials-based Action Mailer configuration
+    config.action_mailer.smtp_settings = {
+      address: Rails.application.credentials.dig(:smtp, :address) || "smtp.gmail.com",
+      port: Rails.application.credentials.dig(:smtp, :port) || 587,
+      domain: Rails.application.credentials.dig(:smtp, :domain) || "gmail.com",
+      user_name: Rails.application.credentials.dig(:smtp, :user_name),
+      password: Rails.application.credentials.dig(:smtp, :password),
+      authentication: :plain,
+      enable_starttls_auto: true
+    }
+
     # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

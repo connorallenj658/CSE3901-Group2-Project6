@@ -5,6 +5,9 @@
   <p class="presentation-description"><strong>Description:</strong> <%= @presentation.description %></p>
 
 <% if @is_teacher %>
+<% if @evaluation_exists %>
+    <p>You have already submitted an evaluation.</p>
+  <% else %>
   <h2>Submit Final Grade</h2>
   <%= form_with url: course_presentation_evaluations_path(@presentation.course, @presentation), local: true do |f| %>
     <div>
@@ -18,6 +21,7 @@
     <div>
       <%= f.submit "Submit Grade" %>
     </div>
+  <% end %>
   <% end %>
 <% elsif @is_student %>
   <% if @evaluation_exists %>
@@ -39,13 +43,23 @@
     <% end %>
   <% end %>
 <% end %>
+<br>
 <% if current_user.teacher? || current_user == @presentation.user %>
   <%= button_to "Delete", course_presentation_path(@course, @presentation.id), method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete this presentation?" } }, class: "btn btn-danger" %>
 <% end %>
 
+<% if current_user == @presentation.user || @is_teacher %>
 <h2>Student Evaluations</h2>
 <ul>
   <% @evaluations.each do |evaluation| %>
-    <li><strong><%= evaluation.user.name %>:</strong> <%= evaluation.score %> - <%= evaluation.comment %></li>
+    <li>
+    <% if @is_teacher %>
+      <%= button_to "Delete", course_presentation_evaluation_path(@presentation.course, @presentation, evaluation), method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete this evaluation?" } }, class: "btn btn-danger" %>
+    <% end %>
+      <strong><%= evaluation.user.name %>:</strong> 
+      <%= evaluation.score %> - <%= evaluation.comment %>
+    </li>
   <% end %>
 </ul>
+
+<% end %>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # get "courses/:id/edit", to: "courses#edit", as: "edit_course"
   resources :courses, only: [:index, :show, :new, :create, :update, :destroy] do
     resources :presentations, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-      resources :evaluations, only: [:new, :create, :index]
+      resources :evaluations, only: [:new, :create, :index, :destroy]
     end
     resources :enrollments, only: [:create, :destroy]
   end

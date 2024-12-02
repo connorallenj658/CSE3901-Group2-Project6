@@ -39,6 +39,7 @@ class PresentationsController < ApplicationController
 
     if current_user.teacher?
       @is_teacher = true
+      @evaluation_exists = @evaluations.where(user_id: current_user.id).exists?
     elsif current_user == @presentation.user
       @is_presenter = true
     else

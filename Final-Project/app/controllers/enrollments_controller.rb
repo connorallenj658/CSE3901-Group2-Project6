@@ -18,7 +18,11 @@ class EnrollmentsController < ApplicationController
     user = User.find_by(email: params[:user_email])
     
     if user.nil?
-      redirect_to course_path(params[:course_id]), alert: "User not found"
+      redirect_to course_roster_path(params[:course_id]), alert: "User not found"
+      return
+    end
+    if Course.find_by_id(params[:course_id]).users.exists?(user.id)
+      redirect_to course_roster_path(params[:course_id]), alert: "User is already enrolled"
       return
     end
     @enrollment = Enrollment.new(user_id: user.id, course_id: params[:course_id])

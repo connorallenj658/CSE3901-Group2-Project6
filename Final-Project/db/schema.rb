@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_02_200629) do
     t.string "description"
     t.string "credits"
     t.integer "user_id", null: false
-    t.integer "course_id", null: false
+    t.integer "course_id"
     t.index ["course_id"], name: "index_presentations_on_course_id"
     t.index ["user_id"], name: "index_presentations_on_user_id"
   end

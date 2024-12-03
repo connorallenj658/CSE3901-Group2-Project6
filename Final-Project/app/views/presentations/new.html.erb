@@ -1,6 +1,10 @@
 <div class="login-container">
 <h1>Create a New Presentation</h1>
 
+<% flash.each do |key, message| %>
+  <div class="alert alert-<%= key %>"><%= message %></div>
+<% end %><br>
+
 <%= form_with model: @presentation, url: course_presentations_path(@course) do |f| %>
   <div>
     <%= f.label :title, "Presentation Title" %><br>

@@ -19,8 +19,15 @@ class PresentationsController < ApplicationController
       flash[:alert] = "User does not exist"
       return
     end
+    if !@course.users.exists?(user.id)
+      redirect_to new_course_presentation_path(@course.id)
+      flash[:alert] = "User is not enrolled in course"
+      return
+    end
+
     date_parts = [params[:presentation]["date(1i)"], params[:presentation]["date(2i)"], params[:presentation]["date(3i)"]]
     combined_date = Date.new(*date_parts.map(&:to_i))
+
     @presentation = Presentation.new(user_id: user.id, title: params[:presentation][:title], description: params[:presentation][:description], date: combined_date)
     @presentation.course_id = @course.id
 
